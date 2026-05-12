@@ -43,7 +43,7 @@ description: 分析skill安全扫描器结果，交叉比对findings与实际源
 对 `response_json.findings` 中的每个finding：
 
 1. **文件检查**：将skill源路径与 `file_path` 拼接，检查文件是否存在
-2. **内容比对**：文件存在且有 `line_number` 时，读取对应行与 `snippet` 比对
+2. **内容比对**：文件存在且有 `line_number` 时，先跳过文件开头的YAML frontmatter（`---`到`---`之间的行），然后读取对应行与 `snippet` 比对。若实际行号与报告行号偏差在5行以内，视为匹配，不报告行号偏差
 3. **判断**：
    - **无误报**：文件存在、内容匹配、该问题确实构成安全风险
    - **误报**：文件不存在、行不匹配、或内容在上下文中无害（如示例代码、文档中的反模式演示、占位符）
@@ -146,5 +146,6 @@ Skill源文件夹：[文件夹路径]
 - `file_path`引用子目录时（如 `references/common_antipatterns.md`），与skill源路径拼接定位文件
 - 注意 `analyzer` 字段——LLM分析器与静态分析器结果质量可能不同
 - `line_number` 为 null 时，可通过搜索snippet内容验证
+- 扫描器的 `line_number` 不计入YAML frontmatter行数，验证时需跳过frontmatter后对齐行号；偏差5行以内视为正常，不报告
 - 批量模式下源文件目录缺失的条目仍需出现在汇总表中，标记"源文件不可用"
 - JSON中的 `server_path` 是扫描服务器路径，可能与用户提供的本地路径不同，文件访问始终使用用户提供的路径
