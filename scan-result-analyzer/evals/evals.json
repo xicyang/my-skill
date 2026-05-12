@@ -1,0 +1,23 @@
+{
+  "skill_name": "scan-result-analyzer",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "分析一下这个skill的扫描结果：skill源文件在 /data/xcyang19/analy/skill/alirezarezvani-code-reviewer-2，扫描结果JSON在 /data/xcyang19/analy/json/clean_hp_json/high.json",
+      "expected_output": "Should find the entry for alirezarezvani-code-reviewer-2 in the JSON, verify the LLM_HARDCODED_SECRETS finding against references/common_antipatterns.md line 364, classify the finding, evaluate the 'black' verdict, and provide scanner optimization suggestions.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "批量分析这些skill的扫描结果：skill源文件目录在 /data/xcyang19/analy/skill/，扫描结果JSON在 /data/xcyang19/analy/json/clean_hp_json/high.json",
+      "expected_output": "Should iterate through all 43 entries in high.json, find matching skill source directories, verify findings against source files, and produce a markdown report with summary table and detailed analysis per skill, appended incrementally.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "帮我看看 /data/xcyang19/analy/skill/ariffazil-arifos-sense 这个skill的扫描结果，JSON文件是 /data/xcyang19/analy/json/clean_hp_json/high.json",
+      "expected_output": "Should find the entry for ariffazil-arifos-sense which has 6 findings including ARCH_DEPTH_EXCEEDED, verify each finding against source files, and provide analysis with verdict assessment and optimization suggestions.",
+      "files": []
+    }
+  ]
+}
